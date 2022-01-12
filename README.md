@@ -2,7 +2,8 @@
 ## Groupe
 	- SBAAI Abdelaziz p1807434
 	- BOUGE Yoann p1711842
-	- mettez vos noms et numéro étudiant
+	- NASR Bechir p1926686
+	- SOUGH Zakari p2018460
 ## Deploiement
 [heroku](https://tp4-tiw8.herokuapp.com/)
 ## Guide de commandes
