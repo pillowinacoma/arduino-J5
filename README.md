@@ -19,55 +19,54 @@ Cette aplication utilise le bundler **Vite** pour garantir un temps de build plu
 
 
 # Présentation du projet 
-L'idée du projet est de simuler la domotique d'une maison autonome. Il sera possible d'ajouter plusieurs features selon les capteurs/actionneurs qui seront mis à notre disposition. 
-Nous allons créer une maquette en carton représentant les différentes pièces d'une maison ou d'un appartement dans lesquels nous pourrons placer les capteurs/actionneurs pour réaliser des actions définies par l'utilisateur. 
+L'idée du projet est de simuler le chauffage autonome d'une maison pour réguler sa température intérieur. 
+
+Nous allons créer une maquette en carton représentant une maison ou un appartement dans laquelle nous allons placer un emetteur et un capteur infrarouge, un bouton, ainsi que 2 LEDs, une rouge et une bleu. 
+
+Le capteur infrarouge permettra de définir si l'utilisateur a passé la porte. Si l'utilisateur a passé la porte, le système se mettra en mode **economie d'énergie**. S'il repasse de nouveau la porte le système repassera en mode **présence**. Un bouton permettra d'activer le **mode vacance**, il faudra appuyer de nouveau pour désactiver ce mode. Lors de la désactivtion du mode, l'utilisateur est à l'intérieur de la maison c'est donc le mode **présence** qui prend la main. 
+
+Les deux LEDs représenteront le chauffage et la climatisation. Lorsque la LED rouge sera allumé cela signifira que le chauffage est allumé, et inversement, la LED bleu simulera l'état de la climatisation. 
 
 ![Maquette d'une maison en carton](http://3.bp.blogspot.com/_khIbCj13leA/R9P0SkWrcvI/AAAAAAAAABQ/vlfamO5ra7c/s320/IMG_0020.JPG)
 
-L'utilisateur pourra gérer les paramètres des fonctionnalités de sa maison via une interface. 
-
-## Fonctionnalités 
 ___
-La liste des fonctionnalités est exhaustive et non définitive, nous pourrons adapter les idées suivantes en fonction du matériel qui sera à notre disposition. 
-
-### Alarme 
-
-À l'aide d'un piézo et d'un capteur de présence (capteur de proximité par exemple), il est possible de concevoir un alarm (activable et désactivable depuis l'interface). 
-Cette alarme sera déclanchée par exemple lorsque la porte d'entrée s'ouvre ou bien qu'il y a un mouvement dans une des pièces de la maison et que l'alarme a été activée. 
-
-### Lumière autonome
-
-Lorsque cette fonctionnalité est activée, des capteurs de présence pourront allumer et éteindre les lumières des pièces en fonction des déplacements de l'utilisateur.
-Par exemple : `L'utilisateur quitte le salon pour aller dans la chambre => les lumières du salon s'éteindront et celles de la chambre s'allumeront.`
-
-La dernière pièce qui aura détecté une présence sera la pièce éclairée, même si l'utilisateur ne bouge plus ou n'est pas détéctée par les capteurs. 
-
-Les lumières seront simulé par des LEDs. 
-Des capteurs de proximité pourront servir de capteur de présence. 
-
-### Cafetière programmable 
-
-Une cafetière pourra être démarrée ou programmée depuis l'interface pour être démarrée à une heure précise certains jours de la semaine. 
-
-La cafetière sera simulée par une LED. 
-
-### Dévérouillage de la porte
-
-La porte d'entrée pourra être déverrouillée depuis l'interface.
-
-Un moteur pourra bloquer l'ouverture de la porte.
-
 ### Chauffage autonome
 
-Le chauffage pourra s'activer lorsque la température descendra en dessous de 20 degrés. Si l'alarme est activée le chauffage passera en veille et ne s'activera que lorsque la température descendra en dessous de 8 degrés.
+Le chauffage autonome possède 3 modes : 
 
-### Mode vacances
+- Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte. 
+- Le mode économie d'énergie, lorsque l'habitant est absent pour une courte duréee (1 2 journée(s) max), alternera l'activité du chauffage et de la climatisation toutes les 5 secondes. De plus la fenêtre de température utilisé pour la régulation sera plus grande. C'est à dire que le chauffage s'activera en dessous de 15°C et la climatisation au dessus de 30°C. 
+- Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton. 
 
-Lorsque l'utilisateur activera le mode vacances la porte se verrouillera, l'alarme s'activera, le chauffage se mettra en veille, les lumières autonomes et la cafetière seront également désactivées jusqu'au retour de l'utilisateur.
-  
+
+``` java
+if ( present ) {
+	
+	chauffage/climatisation régulation de la température en fonction de la température extérieur. 
+	// chauffage < 20:25 > climatisation
+
+} else if ( mode vacances ) {
+	
+	chauffage/climatisation désactivé
+
+} else { // mode économie d'energie
+
+	chauffage/climatisation activé par intermittence (toutes les 5sec) en fonction de la température extérieur
+	// chauffage < 15:30 > climatisation
+
+} 
+```
 
 ## Architecture 
 ___
 ### Architecture Logicelle
 
+
 ### Architecture matérielle
+
+1x capteur de présence
+1x Arduino
+1x LED rouge
+1x LED bleu
+1x boite en carton
+1x playmobile
