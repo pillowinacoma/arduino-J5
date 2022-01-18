@@ -9,8 +9,21 @@
     padding: 0;
 }
 
+@layer components {
+    .content-list {
+        @apply flex flex-col;
+    }
+}
+
 @tailwind utilities;
 
+::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-500 dark:bg-green-400;
+}
 .gradient {
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
