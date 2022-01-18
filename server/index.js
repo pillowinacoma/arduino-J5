@@ -29,6 +29,7 @@ app.get('/weather', (req, res) => {
       temp: JSONObj.main.temp,
       icon: JSONObj.weather[0].icon,
       description: JSONObj.weather[0].description,
+      city: JSONObj.name,
     })
   });
 })
