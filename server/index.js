@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const bodyParser = require('body-parser')
 const port = process.env.PORT || 4000
 const http = require('http')
 const app = express()
@@ -33,6 +34,24 @@ app.get('/weather', (req, res) => {
     })
   });
 })
+
+
+let current_mode = "economie";
+app.get('/current_mode', (req, res) => {
+  res.status(200).json({
+    current_mode: current_mode,
+  })
+})
+
+const jsonParse = bodyParser.json()
+app.post('/current_mode', jsonParse, (req, res) => {
+  const { req_mode } = req.body
+  current_mode = req_mode;
+  res.status(200).json({
+    current_mode: current_mode,
+  })
+})
+
 
 io.on('connection', (socket) => {
   console.log(`START\t${socket.id}`)
