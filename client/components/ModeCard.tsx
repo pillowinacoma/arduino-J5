@@ -19,8 +19,6 @@ const ModeCard: FC<WeatherProps> = ({
     function changeCurrentMode(req_mode: string) {
         axios.post(`/current_mode`, { req_mode }).then((res) => {
             setCurrent_mode(req_mode)
-            console.log(res)
-            console.log(res.data)
         })
     }
     return (
