@@ -28,9 +28,6 @@ const ModeCard: FC<WeatherProps> = ({
                     href="#"
                     className="flex flex-wrap no-underline hover:no-underline"
                 >
-                    <p className="w-full text-gray-600 text-xs md:text-sm px-6">
-                        xGETTING STARTED
-                    </p>
                     <div className="w-full font-bold text-xl text-gray-800 px-6">
                         {name}
                         {is_current_mode && <b> (Mode actuel) </b>}.
@@ -43,7 +40,7 @@ const ModeCard: FC<WeatherProps> = ({
             <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                 <div className={`flex items-center ${button_position}`}>
                     <button
-                        className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                         onClick={() => {
                             changeCurrentMode(name)
                         }}
