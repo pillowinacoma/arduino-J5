@@ -36,7 +36,7 @@ app.get('/weather', (req, res) => {
 })
 
 
-let current_mode = "economie";
+let current_mode = "Mode économie d'énergie";
 app.get('/current_mode', (req, res) => {
   res.status(200).json({
     current_mode: current_mode,
