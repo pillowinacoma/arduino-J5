@@ -25,7 +25,11 @@ app.get('/', (req, res) => {
 
 app.get('/weather', (req, res) => {
   weather.getAllWeather(function (err, JSONObj) {
-    console.log(JSONObj);
+    res.status(200).json({
+      temp: JSONObj.main.temp,
+      icon: JSONObj.weather[0].icon,
+      description: JSONObj.weather[0].description,
+    })
   });
 })
 
