@@ -9,10 +9,24 @@ const io = new Server(server)
 
 const DIST_DIR = path.join(__dirname, '../dist')
 const HTML_FILE = path.join(DIST_DIR, 'index.html')
+var weather = require('openweather-apis');
+
+weather.setCity('villeurbanne');
+weather.setUnits('metric');
+weather.setLang('fr');
+weather.setAPPID("d0c49de67f369ea711c571bb27101732");
+
+
 app.use(express.static(DIST_DIR))
 
 app.get('/', (req, res) => {
   res.send(HTML_FILE)
+})
+
+app.get('/weather', (req, res) => {
+  weather.getAllWeather(function (err, JSONObj) {
+    console.log(JSONObj);
+  });
 })
 
 io.on('connection', (socket) => {
