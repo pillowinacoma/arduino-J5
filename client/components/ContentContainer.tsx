@@ -4,10 +4,17 @@ import axios from 'axios'
 import WeatherCard from './WeatherCard'
 
 const ContentContainer = () => {
+    const [temp, setTemp] = useState('')
+    const [icon, setIcon] = useState('')
+    const [description, setDescription] = useState('')
+    const [city, setCity] = useState('')
+
     useEffect(() => {
         axios.get(`/weather`).then((res) => {
-            console.log(res.data)
-            console.log(res.data.temp)
+            setTemp(res.data.temp)
+            setIcon(res.data.icon)
+            setDescription(res.data.description)
+            setCity(res.data.city)
         })
     }, [])
 
@@ -15,7 +22,12 @@ const ContentContainer = () => {
         <React.Fragment>
             <div className="pt-24">
                 <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
-                    <WeatherCard temp="cc" icon="dd" name="ee" />
+                    <WeatherCard
+                        temp={temp}
+                        icon={icon}
+                        description={description}
+                        city={city}
+                    />
                 </section>
             </div>
 
