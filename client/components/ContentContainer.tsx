@@ -57,7 +57,7 @@ const ContentContainer = () => {
                     />
                     <ModeCard
                         name="Mode activé"
-                        description="Le mode économie d'énergie, alternera l'activité du chauffage et de la climatisation toutes les 5 secondes. De plus la fenêtre de température utilisé pour la régulation sera plus granLe mode activé, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur.de."
+                        description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
                         button_position="justify-center"
                         is_current_mode={
                             current_mode === 'Mode activé' ? true : false
