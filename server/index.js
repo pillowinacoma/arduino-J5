@@ -12,7 +12,7 @@ const DIST_DIR = path.join(__dirname, '../dist')
 const HTML_FILE = path.join(DIST_DIR, 'index.html')
 var weather = require('openweather-apis');
 
-weather.setCity('villeurbanne');
+weather.setCityId(2968254);
 weather.setUnits('metric');
 weather.setLang('fr');
 weather.setAPPID("d0c49de67f369ea711c571bb27101732");
