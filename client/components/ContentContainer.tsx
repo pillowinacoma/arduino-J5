@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import WeatherCard from './WeatherCard'
 import ModeCard from './ModeCard'
+import { useAppSelector } from '../hooks'
 
 const ContentContainer = () => {
     const [temp, setTemp] = useState('')
@@ -13,7 +14,7 @@ const ContentContainer = () => {
 
     useEffect(() => {
         axios.get(`/weather`).then((res) => {
-            setTemp(res.data.temp)
+            // setTemp(res.data.temp)
             setIcon(res.data.icon)
             setDescription(res.data.description)
             setCity(res.data.city)
@@ -22,6 +23,11 @@ const ContentContainer = () => {
             setCurrent_mode(res.data.current_mode)
         })
     }, [])
+
+    const temperature = useAppSelector((state) => state.temperature)
+    useEffect(() => {
+        setTemp(`${temperature}`)
+    }, [temperature])
 
     return (
         <React.Fragment>

@@ -8,6 +8,7 @@
     "start": "node server/index.js"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.7.1",
     "autoprefixer": "^10.4.2",
     "axios": "^0.25.0",
     "daisyui": "^1.22.0",
@@ -18,12 +19,16 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-redux": "^7.2.6",
+    "redux-devtools-extension": "^2.13.9",
     "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
     "tailwindcss": "^3.0.12"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
+    "@types/react-redux": "^7.1.22",
     "@vitejs/plugin-react": "^1.0.7",
     "nodemon": "^2.0.15",
     "typescript": "^4.4.4",
