@@ -1,12 +1,16 @@
 import { AnyAction, Dispatch, Middleware } from 'redux'
 import * as io from 'socket.io-client'
-import { setTemperature } from '../slices/app'
+import { setMode, setTemperature } from '../slices/app'
 import { store } from '../store'
 
 const socket = io.connect()
 const useTrickle = true
 
 socket.on('connect', () => {
+    socket.send({
+        type: 'device',
+        value: 'client',
+    })
     console.log(`connected ${socket.id}`)
 })
 
@@ -17,25 +21,35 @@ socket.on('temperature', (msg) => {
 socket.on('button', () => {
     console.log('button clicked')
 })
+socket.on('order', (data) => {
+    console.log('CHMOD')
+    const { type, params } = data
+    switch (type) {
+        case 'chmode':
+            store.dispatch(setMode(params.mode))
+            break
+    }
+})
 
 export const actionMiddleware: Middleware<Dispatch> =
     () => (next) => (action: AnyAction) => {
         const { meta, type, payload } = action
         const [sliceName, reducer] = type.split('/')
 
-        if (meta?.propagate) {
-            if (sliceName === 'board') {
-                const message = JSON.stringify({
-                    type: reducer,
-                    payload,
-                })
+        if (sliceName === 'app') {
+            const message = JSON.stringify({
+                type: reducer,
+                payload,
+            })
 
-                switch (reducer) {
-                    case 'movePlayer':
-                        break
-                    case 'setAvatar':
-                        break
-                }
+            switch (reducer) {
+                case 'toggleMode':
+                    socket.emit('changeMode', {
+                        mode: store.getState().mode,
+                    })
+                    break
+                case 'setMode':
+                    break
             }
         }
 

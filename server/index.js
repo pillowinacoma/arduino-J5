@@ -50,6 +50,15 @@ app.post('/current_mode', jsonParse, (req, res) => {
     })
 })
 
+let arduinoConnection = undefined
+
+const nextMode = (currMode) => {
+    const modes = ['automatic', 'manual', 'off']
+    const currModeIndex = modes.findIndex((e) => e === currMode)
+    const nextModeIndex = (currModeIndex + 1) % modes.length
+    return modes.at(nextModeIndex)
+}
+
 io.on('connection', (socket) => {
     console.log(`START\t${socket.id}`)
 
@@ -59,10 +68,20 @@ io.on('connection', (socket) => {
             value,
         })
     })
+
     socket.on('button', () => {
-      console.log("BUTTON");
-      socket.broadcast.emit('button')
+        // console.log('BUTTON')
+        socket.broadcast.emit('button')
     })
+    socket.on('changeMode', (data) => {
+        const { mode } = data
+        socket.broadcast.emit('order', {
+            type: 'chmode',
+            params: { mode: nextMode(mode) },
+        })
+    })
+    socket.on('message', (message) => console.log(message))
+
     socket.on('disconnect', () => {
         console.log(`END\t${socket.id}`)
     })

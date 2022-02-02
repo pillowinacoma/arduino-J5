@@ -1,52 +1,67 @@
 const five = require('johnny-five')
-const { Board, Led, Sensor } = five
+const { Board, Led, Sensor, Thermometer } = five
 var io = require('socket.io-client')
-var socket = io.connect('http://localhost:4000')
 
 const board = new Board()
 
-board.on('ready', function () {
-    socket.on('connect', function (socket) {
-        console.log('Connected!')
-    })
-    const leds = [6, 4, 2].map((n) => new Led(n))
+const nextMode = (currMode) => {
+    const modes = ['automatic', 'manual', 'off']
+    const currModeIndex = modes.findIndex((e) => e === currMode)
+    const nextModeIndex = (currModeIndex + 1) % modes.length
+    return modes.at(nextModeIndex)
+}
 
-    // this.loop(500, () => {
-    //     leds[tmp % 3].toggle()
-    //     tmp++
-    // })
+board.on('ready', function () {
+    const socket = io.connect('http://localhost:4000')
+    let mode = 'automatic' // automatic manual off
+
+    socket.on('connect', () => {
+        socket.send({
+            type: 'device',
+            value: 'arduino',
+        })
+    })
+
+    socket.on('order', (data) => {
+        const { type, params } = data
+        switch (type) {
+            case 'chmode':
+                mode = params?.mode ?? mode
+                console.log(mode)
+                break
+        }
+    })
+
+    const leds = [6, 4, 2].map((n) => new Led(n))
 
     var sensor = new Sensor('A0')
 
     // Scale the sensor's data from 0-1023 to 0-10 and log changes
     sensor.on('change', function (d) {
         const index = this.scaleTo(0, 60)
-        socket.emit('temperature', { value: index })
-        // console.log(
-        //     `Level :  ${
-        //         index > 25 ? 0 : index < 20 ? 2 : 1
-        //     } \t Temperature: ${index}`
-        // )
-        leds.forEach((l) => l.off())
-        leds.at(index > 25 ? 0 : index < 20 ? 2 : 1).on()
+    })
+
+    const thermometer = new Thermometer({
+        controller: 'TMP36',
+        pin: 'A4',
+    })
+
+    thermometer.on('change', () => {
+        const { celsius, fahrenheit, kelvin } = thermometer
+        if (mode !== 'off') {
+            socket.emit('temperature', { value: celsius })
+            if (mode === 'automatic') {
+                leds.forEach((l) => l.off())
+                leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).on()
+            }
+        }
     })
 
     var button = new five.Button('A2')
 
-    let tmp = 0
-    button.on('hold', function () {
-        leds.forEach((l) => l.off())
-        leds.at(tmp % 3).on()
-        tmp++
-    })
-
     button.on('press', function () {
-        leds.forEach((l) => l.on())
-        socket.emit('button')
-    })
-
-    button.on('release', function () {
-        leds.forEach((l) => l.off())
+        socket.emit('changeMode', { mode })
+        mode = nextMode(mode)
     })
 
     board.repl.inject({

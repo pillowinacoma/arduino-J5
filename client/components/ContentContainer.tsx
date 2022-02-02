@@ -4,6 +4,8 @@ import axios from 'axios'
 import WeatherCard from './WeatherCard'
 import ModeCard from './ModeCard'
 import { useAppSelector } from '../hooks'
+import ModeLayer from './ModeLayer'
+import ControllsCard from './ControllsCard'
 
 const ContentContainer = () => {
     const [temp, setTemp] = useState('')
@@ -14,7 +16,6 @@ const ContentContainer = () => {
 
     useEffect(() => {
         axios.get(`/weather`).then((res) => {
-            // setTemp(res.data.temp)
             setIcon(res.data.icon)
             setDescription(res.data.description)
             setCity(res.data.city)
@@ -25,20 +26,26 @@ const ContentContainer = () => {
     }, [])
 
     const temperature = useAppSelector((state) => state.temperature)
-    useEffect(() => {
-        setTemp(`${temperature}`)
-    }, [temperature])
+    const mode = useAppSelector((state) => state.mode)
 
     return (
         <React.Fragment>
-            <div className="pt-24">
+            <div className="pt-24 flex">
                 <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
                     <WeatherCard
-                        temp={temp}
+                        temp={`${temperature}`}
                         icon={icon}
                         description={description}
                         city={city}
                     />
+                </section>
+
+                {mode == 'manual' && <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
+                    <ControllsCard />
+                </section>}
+
+                <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
+                    <ModeCard mode={mode} />
                 </section>
             </div>
 
@@ -50,32 +57,30 @@ const ContentContainer = () => {
                     <div className="w-full mb-4">
                         <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
                     </div>
-                    <ModeCard
+                    <ModeLayer
                         name="Mode économie d'énergie"
                         description="Le mode économie d'énergie, alternera l'activité du chauffage et de la climatisation toutes les 5 secondes. De plus la fenêtre de température utilisé pour la régulation sera plus grande."
                         button_position="justify-start"
                         is_current_mode={
                             current_mode === "Mode économie d'énergie"
-                                ? true
-                                : false
                         }
                         setCurrent_mode={setCurrent_mode}
                     />
-                    <ModeCard
+                    <ModeLayer
                         name="Mode activé"
                         description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
                         button_position="justify-center"
                         is_current_mode={
-                            current_mode === 'Mode activé' ? true : false
+                            current_mode === 'Mode activé'
                         }
                         setCurrent_mode={setCurrent_mode}
                     />
-                    <ModeCard
+                    <ModeLayer
                         name="Mode vacances"
                         description="Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton."
                         button_position="justify-end"
                         is_current_mode={
-                            current_mode === 'Mode vacances' ? true : false
+                            current_mode === 'Mode vacances'
                         }
                         setCurrent_mode={setCurrent_mode}
                     />
