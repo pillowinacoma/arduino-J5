@@ -6,12 +6,48 @@ import ModeCard from './ModeCard'
 import { useAppSelector } from '../hooks'
 import ModeLayer from './ModeLayer'
 import ControllsCard from './ControllsCard'
+import Chart from 'react-apexcharts'
 
 const ContentContainer = () => {
     const [temp, setTemp] = useState('')
     const [icon, setIcon] = useState('')
     const [description, setDescription] = useState('')
     const [city, setCity] = useState('')
+    const [series, setSeries] = useState([
+        {
+            name: 'series1',
+            data: [31, 40, 28, 51, 42, 109, 100],
+        },
+    ])
+    const [options, setOptions] = useState({
+        chart: {
+            height: 350,
+            type: 'area',
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        stroke: {
+            curve: 'smooth',
+        },
+        xaxis: {
+            type: 'datetime',
+            categories: [
+                '2018-09-19T00:00:00.000Z',
+                '2018-09-19T01:30:00.000Z',
+                '2018-09-19T02:30:00.000Z',
+                '2018-09-19T03:30:00.000Z',
+                '2018-09-19T04:30:00.000Z',
+                '2018-09-19T05:30:00.000Z',
+                '2018-09-19T06:30:00.000Z',
+            ],
+        },
+        tooltip: {
+            x: {
+                format: 'dd/MM/yy HH:mm',
+            },
+        },
+    })
     const [current_mode, setCurrent_mode] = useState('')
 
     useEffect(() => {
@@ -40,9 +76,11 @@ const ContentContainer = () => {
                     />
                 </section>
 
-                {mode == 'manual' && <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
-                    <ControllsCard />
-                </section>}
+                {mode == 'manual' && (
+                    <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
+                        <ControllsCard />
+                    </section>
+                )}
 
                 <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
                     <ModeCard mode={mode} />
@@ -70,20 +108,34 @@ const ContentContainer = () => {
                         name="Mode activé"
                         description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
                         button_position="justify-center"
-                        is_current_mode={
-                            current_mode === 'Mode activé'
-                        }
+                        is_current_mode={current_mode === 'Mode activé'}
                         setCurrent_mode={setCurrent_mode}
                     />
                     <ModeLayer
                         name="Mode vacances"
                         description="Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton."
                         button_position="justify-end"
-                        is_current_mode={
-                            current_mode === 'Mode vacances'
-                        }
+                        is_current_mode={current_mode === 'Mode vacances'}
                         setCurrent_mode={setCurrent_mode}
                     />
+                </div>
+            </section>
+            <section className="bg-gray-100 border-b py-8">
+                <div className="container max-w-5xl mx-auto m-8">
+                    <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                        Statistiques
+                    </h1>
+                    <div className="w-full mb-4">
+                        <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+                    </div>
+                    <div className="w-full mb-4 ">
+                        <Chart
+                            options={options}
+                            series={series}
+                            type="area"
+                            height={350}
+                        />
+                    </div>
                 </div>
             </section>
             <svg
