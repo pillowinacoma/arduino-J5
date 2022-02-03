@@ -7,47 +7,89 @@ import { useAppSelector } from '../hooks'
 import ModeLayer from './ModeLayer'
 import ControllsCard from './ControllsCard'
 import Chart from 'react-apexcharts'
-
+import { addTemperatureHistory } from '../slices/app'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../store'
 const ContentContainer = () => {
-    const [temp, setTemp] = useState('')
+    const dispatch = useDispatch<AppDispatch>()
+
     const [icon, setIcon] = useState('')
     const [description, setDescription] = useState('')
     const [city, setCity] = useState('')
-    const [series, setSeries] = useState([
-        {
-            name: 'series1',
-            data: [31, 40, 28, 51, 42, 109, 100],
-        },
-    ])
-    const [options, setOptions] = useState({
-        chart: {
-            height: 350,
-            type: 'area',
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            curve: 'smooth',
-        },
-        xaxis: {
-            type: 'datetime',
-            categories: [
-                '2018-09-19T00:00:00.000Z',
-                '2018-09-19T01:30:00.000Z',
-                '2018-09-19T02:30:00.000Z',
-                '2018-09-19T03:30:00.000Z',
-                '2018-09-19T04:30:00.000Z',
-                '2018-09-19T05:30:00.000Z',
-                '2018-09-19T06:30:00.000Z',
-            ],
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm',
+
+    const [chart, setChart] = useState({
+        options: {
+            chart: {
+                id: 'apexchart-example',
+                type: 'line',
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                        speed: 1000,
+                    },
+                },
+                toolbar: {
+                    show: false,
+                },
+                zoom: {
+                    enabled: false,
+                },
+            },
+            stroke: {
+                curve: 'smooth',
+            },
+            xaxis: {
+                type: 'datetime',
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm',
+                },
+            },
+            markers: {
+                size: 0,
+            },
+
+            yaxis: {
+                max: 30,
+                min: 20,
             },
         },
+        series: [
+            {
+                name: 'series-1',
+                data: [],
+            },
+        ],
     })
+
+    const temperaturesHistory = useAppSelector(
+        (state) => state.temperaturesHistory
+    )
+    useEffect(() => {
+        let my_data: any = []
+        temperaturesHistory.forEach((element: any) => {
+            my_data.push([element.time, element.value])
+        })
+        ApexCharts.exec('apexchart-example', 'updateSeries', [
+            {
+                data: my_data,
+            },
+        ])
+    }, [temperaturesHistory])
+    //Simulation de l'envoi de la température chaque 1 seconde
+    useEffect(() => {
+        window.setInterval(() => {
+            dispatch(
+                addTemperatureHistory({
+                    value: Math.floor(Math.random() * 4 + 25),
+                    time: new Date(),
+                })
+            )
+        }, 1000)
+    }, [])
+
     const [current_mode, setCurrent_mode] = useState('')
 
     useEffect(() => {
@@ -130,9 +172,9 @@ const ContentContainer = () => {
                     </div>
                     <div className="w-full mb-4 ">
                         <Chart
-                            options={options}
-                            series={series}
-                            type="area"
+                            options={chart.options}
+                            series={chart.series}
+                            type="line"
                             height={350}
                         />
                     </div>
