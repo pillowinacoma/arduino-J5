@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // Define a type for the slice state
 interface AppState {
-    temperature: number,
+    temperature: number
     mode: Mode
+    temperaturesHistory: TemperatureHistory[]
 }
 
 // Define the initial state using that type
 const initialState: AppState = {
     temperature: 0,
-    mode: 'automatic'
+    mode: 'automatic',
+    temperaturesHistory: [],
 }
 
 export const app = createSlice({
@@ -24,18 +26,21 @@ export const app = createSlice({
         },
         toggleMode: (state) => {
             const modes: Mode[] = ['automatic', 'manual', 'off']
-            const currModeIndex = modes.findIndex(e => e === state.mode)
+            const currModeIndex = modes.findIndex((e) => e === state.mode)
             const nextModeIndex = (currModeIndex + 1) % modes.length
             state.mode = modes.at(nextModeIndex) ?? state.mode
-        }
+        },
+        addTemperatureHistory: (
+            state,
+            action: PayloadAction<TemperatureHistory>
+        ) => {
+            state.temperaturesHistory.push(action.payload)
+        },
     },
 })
 
-export const {
-    setTemperature,
-    setMode,
-    toggleMode
-} = app.actions
+export const { setTemperature, setMode, toggleMode, addTemperatureHistory } =
+    app.actions
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.slidesApp.value
