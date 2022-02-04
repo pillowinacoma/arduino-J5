@@ -73,14 +73,40 @@ io.on('connection', (socket) => {
         // console.log('BUTTON')
         socket.broadcast.emit('button')
     })
-    socket.on('changeMode', (data) => {
+
+    socket.on('setMode', (data) => {
+        const { mode } = data
+        socket.broadcast.emit('order', {
+            type: 'chmode',
+            params: { mode },
+        })
+    })
+
+    socket.on('toggleMode', (data) => {
         const { mode } = data
         socket.broadcast.emit('order', {
             type: 'chmode',
             params: { mode: nextMode(mode) },
         })
     })
+
     socket.on('message', (message) => console.log(message))
+
+    socket.on('setAc', (data) => {
+        const { value } = data
+        socket.broadcast.emit('order', {
+            type: 'setAc',
+            params: { value },
+        })
+    })
+
+    socket.on('setHeating', (data) => {
+        const { value } = data
+        socket.broadcast.emit('order', {
+            type: 'setHeating',
+            params: { value },
+        })
+    })
 
     socket.on('disconnect', () => {
         console.log(`END\t${socket.id}`)

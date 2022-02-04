@@ -14,6 +14,17 @@ const nextMode = (currMode) => {
 board.on('ready', function () {
     const socket = io.connect('http://localhost:4000')
     let mode = 'automatic' // automatic manual off
+    let temperature = 0
+
+    // 6 => BLue  / AC
+    // 4 => Green / Good
+    // 2 => Red   / Heating
+    const leds = [6, 4, 2].map((n) => ({ isOn: false, led: new Led(n) }))
+
+    const thermometer = new Thermometer({
+        controller: 'TMP36',
+        pin: 'A4',
+    })
 
     socket.on('connect', () => {
         socket.send({
@@ -27,32 +38,53 @@ board.on('ready', function () {
         switch (type) {
             case 'chmode':
                 mode = params?.mode ?? mode
-                console.log(mode)
+
+                mode == 'manual' &&
+                    leds.forEach((l) => {
+                        l.led.off()
+                        l.isOn = false
+                    })
+                break
+            case 'setAc':
+                if (mode == 'manual') {
+                    params.value && leds.at(0).led.on()
+                    !params.value && leds.at(0).led.off()
+                    leds.at(0).isOn = params.value
+                }
+                break
+            case 'setHeating':
+                if (mode == 'manual') {
+                    params.value && leds.at(2).led.on()
+                    !params.value && leds.at(2).led.off()
+                    leds.at(2).isOn = params.value
+                }
                 break
         }
     })
 
-    const leds = [6, 4, 2].map((n) => ({ isOn: false, led: new Led(n) }))
-
-    const thermometer = new Thermometer({
-        controller: 'TMP36',
-        pin: 'A4',
-    })
-
     thermometer.on('change', () => {
-        const { celsius, fahrenheit, kelvin } = thermometer
-        if (mode !== 'off') {
-            socket.emit('temperature', { value: celsius })
-            if (mode === 'automatic') {
-                leds.forEach((l) => {
-                    l.led.off()
-                    l.isOn = false
-                })
-                leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).led.on()
-                leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).isOn = true
-            }
+        const { celsius } = thermometer
+        if (mode === 'automatic') {
+            temperature = celsius
+            leds.forEach((l) => {
+                l.led.off()
+                l.isOn = false
+            })
+            leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).led.on()
+            leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).isOn = true
+        } else if (mode === 'manual') {
+            temperature = celsius
+        } else if (mode === 'off') {
+            leds.forEach((l) => {
+                l.led.off()
+                l.isOn = false
+            })
         }
     })
+
+    setInterval(() => {
+        socket.emit('temperature', { value: temperature })
+    }, 1000)
 
     var button = new five.Button('A2')
 

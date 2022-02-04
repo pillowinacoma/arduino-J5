@@ -40,11 +40,9 @@ const ContentContainer = () => {
                     />
                 </section>
 
-                {mode == 'manual' && (
                     <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
                         <ControllsCard />
                     </section>
-                )}
 
                 <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
                     <ModeCard mode={mode} />

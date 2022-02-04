@@ -5,6 +5,8 @@ interface AppState {
     temperature: number
     mode: Mode
     temperaturesHistory: TemperatureHistory[]
+    devices: Devices
+
 }
 
 // Define the initial state using that type
@@ -12,6 +14,10 @@ const initialState: AppState = {
     temperature: 0,
     mode: 'automatic',
     temperaturesHistory: [],
+    devices: {
+        ac: false,
+        heating: false,
+    }
 }
 
 export const app = createSlice({
@@ -36,10 +42,16 @@ export const app = createSlice({
         ) => {
             state.temperaturesHistory.push(action.payload)
         },
+        setAc: (state, action: PayloadAction<boolean>) => {
+            state.devices.ac = action.payload
+        }, 
+        setHeating: (state, action: PayloadAction<boolean>) => {
+            state.devices.heating = action.payload
+        }
     },
 })
 
-export const { setTemperature, setMode, toggleMode, addTemperatureHistory } =
+export const { setTemperature, setMode, toggleMode, addTemperatureHistory, setAc, setHeating } =
     app.actions
 
 // Other code such as selectors can use the imported `RootState` type
