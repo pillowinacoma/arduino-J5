@@ -35,13 +35,20 @@
 }
 
 .indicator-item {
-    background-color: aqua;
-    border: solid 1px aqua;
+    background-color: #daae51;
+    border: solid 1px #daae51;
+    transform: scale(1) !important;
+    transition: all 0.15s ease-out;
+}
+
+.indicator-item-disable {
+    transform: scale(0) !important;
 }
 
 .disable-button {
     filter: grayscale(100%);
 }
+
 .apexcharts-tooltip {
     background: #f3f3f3;
     color: orange;

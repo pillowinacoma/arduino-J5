@@ -29,7 +29,7 @@ const ModeCard: FC<WeatherProps> = ({
     return (
         <div className="p-6">
             <div className="m-6 indicator">
-                {(name === current_mode) && <div className="indicator-item badge badge-secondary"></div>}
+                <div className={`indicator-item badge badge-secondary ${(current_mode === name) ? '' : 'indicator-item-disable'}`}></div>
                 <div className="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
                     <div className="collapse w-96 border rounded-box border-base-300 collapse-arrow">
                         <input type="checkbox"/>
