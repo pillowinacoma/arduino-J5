@@ -27,3 +27,12 @@
 .gradient {
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
+
+.indicator-item {
+    background-color: aqua;
+    border: solid 1px aqua;
+}
+
+.disable-button {
+    filter: grayscale(100%);
+}
