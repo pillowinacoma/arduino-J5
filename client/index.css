@@ -24,6 +24,12 @@
 ::-webkit-scrollbar-thumb {
     @apply bg-gray-500 dark:bg-green-400;
 }
+.froid {
+    background: linear-gradient(90deg, #3c84f1 0%, #b1e0ee 100%);
+}
+.chaud {
+    background: linear-gradient(90deg, #fc4829 0%, #daae51 100%);
+}
 .gradient {
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
@@ -35,4 +41,8 @@
 
 .disable-button {
     filter: grayscale(100%);
+}
+.apexcharts-tooltip {
+    background: #f3f3f3;
+    color: orange;
 }

@@ -19,13 +19,13 @@ const ControllsCard: FC<ModeProps> = ({ mode }) => {
             </div>
             <div className={`flex items-center justify-center}`}>
                 <button
-                    className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    className="mx-auto lg:mx-0 hover:underline froid text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                     onClick={() => console.log('HELLO')}
                 >
                     Froid
                 </button>
                 <button
-                    className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    className="mx-auto lg:mx-0 hover:underline chaud text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                     onClick={() => console.log('HELLO')}
                 >
                     Chaud
