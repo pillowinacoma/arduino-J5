@@ -32,14 +32,7 @@ board.on('ready', function () {
         }
     })
 
-    const leds = [6, 4, 2].map((n) => new Led(n))
-
-    var sensor = new Sensor('A0')
-
-    // Scale the sensor's data from 0-1023 to 0-10 and log changes
-    sensor.on('change', function (d) {
-        const index = this.scaleTo(0, 60)
-    })
+    const leds = [6, 4, 2].map((n) => ({ isOn: false, led: new Led(n) }))
 
     const thermometer = new Thermometer({
         controller: 'TMP36',
@@ -51,8 +44,12 @@ board.on('ready', function () {
         if (mode !== 'off') {
             socket.emit('temperature', { value: celsius })
             if (mode === 'automatic') {
-                leds.forEach((l) => l.off())
-                leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).on()
+                leds.forEach((l) => {
+                    l.led.off()
+                    l.isOn = false
+                })
+                leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).led.on()
+                leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).isOn = true
             }
         }
     })
@@ -66,7 +63,6 @@ board.on('ready', function () {
 
     board.repl.inject({
         leds,
-        sensor,
         button,
         socket,
     })
