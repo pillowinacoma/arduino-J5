@@ -15,7 +15,7 @@ Cette aplication utilise le bundler **Vite** pour garantir un temps de build plu
 
 # Présentation du projet
 
-L'idée du projet est de simuler le chauffage autonome d'une maison pour réguler sa température intérieur.
+L'idée du projet est de simuler le chauffage autonome d'une maison pour réguler sa température intérieure.
 
 Nous allons créer une maquette en carton représentant une maison ou un appartement dans laquelle nous allons placer un emetteur et un capteur infrarouge, un bouton, ainsi que 2 LEDs, une rouge et une bleu.
 
