@@ -27,3 +27,7 @@
 .gradient {
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
+.apexcharts-tooltip {
+    background: #f3f3f3;
+    color: orange;
+}

@@ -46,19 +46,20 @@ const ContentContainer = () => {
                 x: {
                     format: 'dd/MM/yy HH:mm',
                 },
+                y: {
+                    formatter: undefined,
+                    title: {
+                        formatter: (seriesName) => seriesName,
+                    },
+                },
             },
             markers: {
                 size: 0,
             },
-
-            yaxis: {
-                max: 30,
-                min: 20,
-            },
         },
         series: [
             {
-                name: 'series-1',
+                name: 'Temperature :',
                 data: [],
             },
         ],
