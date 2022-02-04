@@ -7,18 +7,6 @@
     - NASR Bechir p1926686
     - SOUGH Zakari p2018460
 
-## Deploiement
-
-[heroku](https://tp4-tiw8.herokuapp.com/)
-
-## Guide de commandes
-
--   `yarn run build` : Créer un bundle de notre application en mode production
--   `yarn run start` : Lance le serveur express en mode production, il est fortement conseillé de lancer `yarn run build` avant
--   `yarn run dev` : Créer un bundle de notre application en mode developpement et lance le serveur Express
-
--   `git push heroku main` : Déploie l'application sur heroku (fonctionne uniquement sur la branche master ou main)
-
 ## Spec technique
 
 Cette aplication utilise le bundler **Vite** pour garantir un temps de build plus rapide et un bundle size plus petit
@@ -88,6 +76,12 @@ if ( present ) {
 
 ## API
 
+#### Afficher la temperature actuel
+
+-   URL : `https://tiw8-tp04.herokuapp.com/weather`
+-   Methode : `GET`
+-   Exemple : `curl -X GET https://tiw8-tp04.herokuapp.com/weather`
+
 #### Afficher le mode actuel
 
 -   URL : `https://tiw8-tp04.herokuapp.com/current_mode`
@@ -99,3 +93,11 @@ if ( present ) {
 -   URL : `https://tiw8-tp04.herokuapp.com/current_mode`
 -   Methode : `POST`
 -   Exemple : `curl -d '{"req_mode":"Mode vacances"}' -H "Content-Type: application/json" -X POST https://tiw8-tp04.herokuapp.com/current_mode`
+
+## Guide de commandes
+
+-   `yarn run build` : Créer un bundle de notre application en mode production
+-   `yarn run start` : Lance le serveur express en mode production, il est fortement conseillé de lancer `yarn run build` avant
+-   `yarn run dev` : Créer un bundle de notre application en mode developpement et lance le serveur Express
+
+-   `git push heroku main` : Déploie l'application sur heroku (fonctionne uniquement sur la branche master ou main)
