@@ -60,7 +60,6 @@ const ContentContainer = () => {
                     <ModeLayer
                         name="manual"
                         description="Le mode économie d'énergie, alternera l'activité du chauffage et de la climatisation toutes les 5 secondes. De plus la fenêtre de température utilisé pour la régulation sera plus grande."
-                        button_position="justify-start"
                         is_current_mode={
                             current_mode === "Mode économie d'énergie"
                         }
@@ -69,14 +68,12 @@ const ContentContainer = () => {
                     <ModeLayer
                         name="automatic"
                         description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
-                        button_position="justify-center"
                         is_current_mode={current_mode === 'Mode activé'}
                         setCurrent_mode={setCurrent_mode}
                     />
                     <ModeLayer
                         name="off"
                         description="Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton."
-                        button_position="justify-end"
                         is_current_mode={current_mode === 'Mode vacances'}
                         setCurrent_mode={setCurrent_mode}
                     />
