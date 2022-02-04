@@ -8,7 +8,6 @@ import { useAppSelector } from '../hooks'
 interface WeatherProps {
     name: Mode
     description: string
-    button_position: string
     is_current_mode?: boolean
     setCurrent_mode: (req_mode: string) => void
 }
@@ -16,7 +15,6 @@ interface WeatherProps {
 const ModeCard: FC<WeatherProps> = ({
     name,
     description,
-    button_position,
     is_current_mode = false,
 }) => {
     const current_mode = useAppSelector((state) => state.mode)
@@ -41,7 +39,15 @@ const ModeCard: FC<WeatherProps> = ({
                         </div>
                     </div>
                     <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                        <div className={`flex items-center ${button_position}`}>
+                        <div className={`flex items-center justify-center`}>
+                            {name === 'manual' && name === current_mode && (
+                                <button
+                                    className="mx-auto lg:mx-0 hover:underline froid text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                                    onClick={() => console.log('HELLO')}
+                                >
+                                    Froid
+                                </button>
+                            )}
                             <button
                                 className={`mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out ${
                                     name === current_mode
@@ -54,6 +60,14 @@ const ModeCard: FC<WeatherProps> = ({
                             >
                                 Activer
                             </button>
+                            {name === 'manual' && name === current_mode && (
+                                <button
+                                    className="mx-auto lg:mx-0 hover:underline chaud text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                                    onClick={() => console.log('HELLO')}
+                                >
+                                    Chaud
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
