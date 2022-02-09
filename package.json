@@ -1,9 +1,6 @@
 {
     "name": "vite-test",
     "version": "0.0.0",
-    "engines": {
-        "node": "16.13.2"
-    },
     "scripts": {
         "dev": "vite build --watch & nodemon server/index.js",
         "build": "vite build",
