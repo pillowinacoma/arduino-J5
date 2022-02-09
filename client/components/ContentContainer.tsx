@@ -2,11 +2,9 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import WeatherCard from './WeatherCard'
-import ModeCard from './ModeCard'
 import StatsCard from './StatsCard'
 import { useAppSelector } from '../hooks'
 import ModeLayer from './ModeLayer'
-import ControllsCard from './ControllsCard'
 const ContentContainer = () => {
     const [icon, setIcon] = useState('')
     const [description, setDescription] = useState('')
@@ -38,10 +36,6 @@ const ContentContainer = () => {
                         description={description}
                         city={city}
                     />
-                </section>
- 
-                <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
-                    <ModeCard mode={mode} />
                 </section>
             </div>
 
