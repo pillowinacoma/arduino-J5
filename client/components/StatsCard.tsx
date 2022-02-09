@@ -1,14 +1,12 @@
 import Chart from 'react-apexcharts'
-import { addTemperatureHistory } from '../slices/app'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../store'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useAppSelector } from '../hooks'
+import { ApexOptions, exec } from "apexcharts";
+
 
 const StatsCard = () => {
-    const dispatch = useDispatch<AppDispatch>()
 
-    const chart: { options: ApexCharts.ApexOptions; series: any[] } = {
+    const chart: { options: ApexOptions; series: any[] } = {
         options: {
             chart: {
                 id: 'apexchart-example',
@@ -24,7 +22,7 @@ const StatsCard = () => {
                     show: false,
                 },
                 zoom: {
-                    enabled: false,
+                    enabled: true,
                 },
             },
             stroke: {
@@ -63,7 +61,7 @@ const StatsCard = () => {
         temperaturesHistory.forEach((element: any) => {
             my_data.push([element.time, element.value])
         })
-        ApexCharts.exec('apexchart-example', 'updateSeries', [
+        exec('apexchart-example', 'updateSeries', [
             {
                 data: my_data,
             },

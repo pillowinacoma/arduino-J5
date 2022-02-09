@@ -6,7 +6,7 @@
     },
     "scripts": {
         "dev": "vite build --watch & nodemon server/index.js",
-        "build": "tsc && vite build",
+        "build": "vite build",
         "preview": "vite preview",
         "start": "node server/index.js"
     },
