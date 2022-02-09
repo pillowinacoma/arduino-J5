@@ -38,35 +38,36 @@ const ContentContainer = () => {
                     />
                 </section>
             </div>
-
             <section className="bg-white border-b py-8">
-                <div className="container mx-auto flex flex-wrap pt-4 pb-12">
+                <div className="container px-5 py-24 mx-auto">
                     <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                         Chauffage autonome
                     </h1>
                     <div className="w-full mb-4">
                         <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
                     </div>
-                    <ModeLayer
-                        name="manual"
-                        description="Le mode économie d'énergie, alternera l'activité du chauffage et de la climatisation toutes les 5 secondes. De plus la fenêtre de température utilisé pour la régulation sera plus grande."
-                        is_current_mode={
-                            current_mode === "Mode économie d'énergie"
-                        }
-                        setCurrent_mode={setCurrent_mode}
-                    />
-                    <ModeLayer
-                        name="automatic"
-                        description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
-                        is_current_mode={current_mode === 'Mode activé'}
-                        setCurrent_mode={setCurrent_mode}
-                    />
-                    <ModeLayer
-                        name="off"
-                        description="Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton."
-                        is_current_mode={current_mode === 'Mode vacances'}
-                        setCurrent_mode={setCurrent_mode}
-                    />
+                    <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+                        <ModeLayer
+                            name="manual"
+                            description="Le mode économie d'énergie, alternera l'activité du chauffage et de la climatisation toutes les 5 secondes. De plus la fenêtre de température utilisé pour la régulation sera plus grande."
+                            is_current_mode={
+                                current_mode === "Mode économie d'énergie"
+                            }
+                            setCurrent_mode={setCurrent_mode}
+                        />
+                        <ModeLayer
+                            name="automatic"
+                            description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
+                            is_current_mode={current_mode === 'Mode activé'}
+                            setCurrent_mode={setCurrent_mode}
+                        />
+                        <ModeLayer
+                            name="off"
+                            description="Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton."
+                            is_current_mode={current_mode === 'Mode vacances'}
+                            setCurrent_mode={setCurrent_mode}
+                        />
+                    </div>
                 </div>
             </section>
             <StatsCard />

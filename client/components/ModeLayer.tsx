@@ -21,15 +21,15 @@ const ModeCard: FC<WeatherProps> = ({
 
     const dispatch = useDispatch<AppDispatch>()
     return (
-        <div className="p-6">
-            <div className="m-6 indicator">
+        <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
+            <div className="border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden indicator items-center">
                 <div
                     className={`indicator-item badge badge-secondary ${
                         current_mode === name ? '' : 'indicator-item-disable'
                     }`}
                 ></div>
-                <div className="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
-                    <div className="collapse w-96 border rounded-box border-base-300 collapse-arrow">
+                <div className="flex flex-col flex-grow flex-shrink ">
+                    <div className="collapse border rounded-box border-base-300 collapse-arrow">
                         <input type="checkbox" />
                         <div className="collapse-title w-full font-bold text-xl text-gray-800 px-6">
                             {name}. <br />
@@ -38,7 +38,7 @@ const ModeCard: FC<WeatherProps> = ({
                             {description}
                         </div>
                     </div>
-                    <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-4">
                         <div className={`flex items-center justify-center`}>
                             {name === 'manual' && name === current_mode && (
                                 <button
