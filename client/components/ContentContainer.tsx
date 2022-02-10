@@ -43,7 +43,7 @@ const ContentContainer = () => {
                     "
                 >
                     {mode != 'off' && (
-                        <InternalWeatherCard temp={`${temperature}`} />
+                        <InternalWeatherCard temp={Number(temperature)} />
                     )}
 
                     <ExternelWeatherCard

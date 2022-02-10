@@ -11,7 +11,7 @@ interface AppState {
 // Define the initial state using that type
 const initialState: AppState = {
     temperature: 25,
-    mode: 'off',
+    mode: 'automatic',
     temperaturesHistory: [],
     devices: {
         ac: false,
