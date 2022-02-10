@@ -7,7 +7,12 @@ interface WeatherProps {
     description: string
     city: string
 }
-const WeatherCard: FC<WeatherProps> = ({ temp, icon, description, city }) => {
+const ExternelWeatherCard: FC<WeatherProps> = ({
+    temp,
+    icon,
+    description,
+    city,
+}) => {
     return (
         <div className="bg-white p-8 bg-opacity-80 rounded-3xl flex space-x-12 items-center shadow-md">
             <div>
@@ -18,7 +23,7 @@ const WeatherCard: FC<WeatherProps> = ({ temp, icon, description, city }) => {
                 />
 
                 <p className="text-center text-gray-500 mt-2 text-sm">
-                    {description}
+                    Température extérieure
                 </p>
             </div>
             <div>
@@ -31,4 +36,4 @@ const WeatherCard: FC<WeatherProps> = ({ temp, icon, description, city }) => {
     )
 }
 
-export default WeatherCard
+export default ExternelWeatherCard
