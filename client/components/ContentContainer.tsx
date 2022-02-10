@@ -6,11 +6,9 @@ import InternalWeatherCard from './InternalWeatherCard'
 import StatsCard from './StatsCard'
 import { useAppSelector } from '../hooks'
 import ModeLayer from './ModeLayer'
-import WeatherIcon from '../images/weather-icon.png'
 import ActiveIcon from '../images/icons/active.svg'
 import EconomyIcon from '../images/icons/economy.svg'
 import VacanceIcon from '../images/icons/vacance.svg'
-import TempIcon from '../images/icons/temp-icon.svg'
 
 const ContentContainer = () => {
     const [icon, setIcon] = useState('')
@@ -34,13 +32,16 @@ const ContentContainer = () => {
 
     return (
         <React.Fragment>
-            <div className="bg-weather bg-cover bg-bottom p-40">
+            <div className="bg-weather bg-cover bg-bottom p-8 md:p-40">
                 <h1 className="text-center text-5xl font-bold">Smart Room</h1>
                 <p className="text-center text-md">
                     vous pouvez trouver dans cette page un rapport sur la météo
                     externe et interne...{' '}
                 </p>
-                <div className=" justify-center flex flex-row space-x-5 mt-4">
+                <div
+                    className="flex md:space-x-4 flex-col md:flex-row container mx-auto items-center p-6 mb-12 justify-center content-list
+                    "
+                >
                     <InternalWeatherCard temp={`${temperature}`} />
                     <ExternelWeatherCard
                         temp={`${temp}`}
@@ -50,9 +51,10 @@ const ContentContainer = () => {
                     />
                 </div>
             </div>
+
             <section className="bg-white border-b py-8">
                 <div className="container px-5 py-24 mx-auto">
-                    <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                    <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-blueweather">
                         Chauffage autonome
                     </h1>
                     <div className="w-full mb-4">

@@ -15,15 +15,14 @@ const ExternelWeatherCard: FC<WeatherProps> = ({
     city,
 }) => {
     return (
-        <div className="bg-white p-10 rounded-3xl flex flex-row  items-center shadow-xl">
+        <div className="bg-white p-10 rounded-3xl flex flex-col md:flex-row  items-center shadow-xl">
             <img
-                src={TempIcon}
-                alt="weather status icon"
+                src={`http://openweathermap.org/img/w/${icon}.png`}
                 className="h-32 w-32 pr-4"
             />
 
             <div className="flex flex-col">
-                <p className="text-7xl pt-4 font-bold text-right text-blueweather">
+                <p className="text-7xl pt-4 font-bold text-center md:text-right text-blueweather">
                     {temp}°
                 </p>
                 <p className=" text-black font-semibold">
