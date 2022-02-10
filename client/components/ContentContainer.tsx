@@ -10,6 +10,7 @@ const ContentContainer = () => {
     const [icon, setIcon] = useState('')
     const [description, setDescription] = useState('')
     const [city, setCity] = useState('')
+    const [temp, setTemp] = useState(0)
 
     const [current_mode, setCurrent_mode] = useState('')
 
@@ -18,9 +19,7 @@ const ContentContainer = () => {
             setIcon(res.data.icon)
             setDescription(res.data.description)
             setCity(res.data.city)
-        })
-        axios.get(`/current_mode`).then((res) => {
-            setCurrent_mode(res.data.current_mode)
+            setTemp(Math.round(res.data.temp))
         })
     }, [])
 
@@ -30,14 +29,16 @@ const ContentContainer = () => {
     return (
         <React.Fragment>
             <div className="pt-24 flex md:space-x-4 flex-col md:flex-row container mx-auto items-center p-6 mb-12 justify-center content-list">
-                <InternalWeatherCard
-                    temp={`${temperature}`}
-                    icon={icon}
-                    description={description}
-                    city={city}
-                />
+                {mode != 'off' && (
+                    <InternalWeatherCard
+                        temp={`${temperature}`}
+                        icon={icon}
+                        description={description}
+                        city={city}
+                    />
+                )}
                 <ExternelWeatherCard
-                    temp={`${temperature}`}
+                    temp={`${temp}`}
                     icon={icon}
                     description={description}
                     city={city}
@@ -56,19 +57,16 @@ const ContentContainer = () => {
                             name="manual"
                             description="Le mode manuel, permet de controller le système manuellement"
                             current_mode="Mode manuel"
-                            setCurrent_mode={setCurrent_mode}
                         />
                         <ModeLayer
                             name="automatic"
                             description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
                             current_mode="Mode activé"
-                            setCurrent_mode={setCurrent_mode}
                         />
                         <ModeLayer
                             name="off"
                             description="Le mode vacances quant à lui, désactivera le chauffage et la climatisation. Ce mode pourra être activé ou désactivé en actionnant un bouton."
                             current_mode="Mode vacances"
-                            setCurrent_mode={setCurrent_mode}
                         />
                     </div>
                 </div>
