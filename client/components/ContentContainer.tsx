@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import WeatherCard from './WeatherCard'
+import ExternelWeatherCard from './ExternelWeatherCard'
+import InternalWeatherCard from './InternalWeatherCard'
 import StatsCard from './StatsCard'
 import { useAppSelector } from '../hooks'
 import ModeLayer from './ModeLayer'
@@ -28,15 +29,19 @@ const ContentContainer = () => {
 
     return (
         <React.Fragment>
-            <div className="pt-24 flex flex-col md:flex-row  ">
-                <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
-                    <WeatherCard
-                        temp={`${temperature}`}
-                        icon={icon}
-                        description={description}
-                        city={city}
-                    />
-                </section>
+            <div className="pt-24 flex md:space-x-4 flex-col md:flex-row container mx-auto items-center p-6 mb-12 justify-center content-list">
+                <InternalWeatherCard
+                    temp={`${temperature}`}
+                    icon={icon}
+                    description={description}
+                    city={city}
+                />
+                <ExternelWeatherCard
+                    temp={`${temperature}`}
+                    icon={icon}
+                    description={description}
+                    city={city}
+                />
             </div>
             <section className="bg-white border-b py-8">
                 <div className="container px-5 py-24 mx-auto">
