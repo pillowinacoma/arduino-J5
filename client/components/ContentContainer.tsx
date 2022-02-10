@@ -28,7 +28,7 @@ const ContentContainer = () => {
 
     return (
         <React.Fragment>
-            <div className="pt-24 flex">
+            <div className="pt-24 flex flex-col md:flex-row  ">
                 <section className="container mx-auto items-center py-6 mb-12 justify-center content-list">
                     <WeatherCard
                         temp={`${temperature}`}
