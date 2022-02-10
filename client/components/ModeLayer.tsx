@@ -9,9 +9,15 @@ interface WeatherProps {
     name: Mode
     description: string
     current_mode?: string
+    icon?: string
 }
 
-const ModeCard: FC<WeatherProps> = ({ name, description, current_mode }) => {
+const ModeCard: FC<WeatherProps> = ({
+    name,
+    description,
+    current_mode,
+    icon,
+}) => {
     const cm = useAppSelector((state) => state.mode)
 
     const dispatch = useDispatch<AppDispatch>()
@@ -21,6 +27,8 @@ const ModeCard: FC<WeatherProps> = ({ name, description, current_mode }) => {
 
     return (
         <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
+            <img src={icon} width={50} height={50} className="mb-4 pt-4" />
+
             <div className="border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden indicator items-center">
                 <div
                     className={`indicator-item badge badge-secondary ${
@@ -52,7 +60,7 @@ const ModeCard: FC<WeatherProps> = ({ name, description, current_mode }) => {
                                 </button>
                             )}
                             <button
-                                className={`mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out ${
+                                className={`flex mx-auto text-white bg-blueweather border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg ${
                                     name === cm
                                         ? 'opacity-50 cursor-not-allowed'
                                         : ''

@@ -38,8 +38,8 @@
 }
 
 .indicator-item {
-    background-color: #daae51;
-    border: solid 1px #daae51;
+    background-color: #003c96;
+    border: solid 1px #003c96;
     transform: scale(1) !important;
     transition: all 0.15s ease-out;
 }

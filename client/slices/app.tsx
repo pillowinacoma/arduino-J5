@@ -10,8 +10,8 @@ interface AppState {
 
 // Define the initial state using that type
 const initialState: AppState = {
-    temperature: 0,
-    mode: 'automatic',
+    temperature: 25,
+    mode: 'off',
     temperaturesHistory: [],
     devices: {
         ac: false,
@@ -67,7 +67,7 @@ export const {
     addTemperatureHistory,
     setAc,
     setHeating,
-    changeMode
+    changeMode,
 } = app.actions
 
 // Other code such as selectors can use the imported `RootState` type

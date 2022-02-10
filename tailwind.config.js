@@ -16,6 +16,10 @@ module.exports = {
           100: '#f2f3f5',
         },
       },
+      backgroundImage: {
+        weather:
+          'url(/images/pattern.png),linear-gradient(to right,#002762c2,#0043a8),url(/images/Weather.jpg) ',
+      },
       spacing: {
         88: '22rem',
       },
