@@ -51,7 +51,7 @@ const ModeCard: FC<WeatherProps> = ({
                                 <button
                                     className={`mx-auto lg:mx-0 hover:underline ${
                                         ac ? 'froid' : 'neutral'
-                                    } text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out`}
+                                    } text-white font-bold py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out`}
                                     onClick={() =>
                                         mode == 'manual' && dispatch(setAc(!ac))
                                     }
@@ -76,7 +76,7 @@ const ModeCard: FC<WeatherProps> = ({
                                 <button
                                     className={`mx-auto lg:mx-0 hover:underline ${
                                         heating ? 'chaud' : 'neutral'
-                                    } text-white font-bold rounded-full py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out `}
+                                    } text-white font-bold py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out `}
                                     onClick={() =>
                                         mode == 'manual' &&
                                         dispatch(setHeating(!heating))

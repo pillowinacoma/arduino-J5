@@ -42,7 +42,10 @@ const ContentContainer = () => {
                     className="flex md:space-x-4 flex-col md:flex-row container mx-auto items-center p-6 mb-12 justify-center content-list
                     "
                 >
-                    <InternalWeatherCard temp={`${temperature}`} />
+                    {mode != 'off' && (
+                        <InternalWeatherCard temp={`${temperature}`} />
+                    )}
+
                     <ExternelWeatherCard
                         temp={`${temp}`}
                         icon={icon}
