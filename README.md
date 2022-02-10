@@ -76,6 +76,8 @@ if ( present ) {
 
 ## API
 
+Comme API externe nous utilisons [OpenWeatherMap API](https://openweathermap.org/api) pour afficher la méteo actuelle dans la carte de l'interface. 
+
 #### Afficher la temperature actuel
 
 -   URL : `https://tiw8-tp04.herokuapp.com/weather`
