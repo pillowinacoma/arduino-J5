@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        blueweather: { DEFAULT: '#003c96' },
         gray: {
           900: '#202225',
           800: '#2f3136',
