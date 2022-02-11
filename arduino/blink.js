@@ -22,7 +22,7 @@ const setMode = (mode, socket) => {
 }
 
 board.on('ready', function () {
-    const socket = io.connect('http://localhost:4000')
+    const socket = io.connect('https://tiw8-tp04.herokuapp.com/')
     let temperature = 0
 
     // 6 => BLue  / AC
@@ -91,6 +91,13 @@ board.on('ready', function () {
             leds.at(celsius > 25 ? 0 : celsius < 20 ? 2 : 1).isOn = true
         } else if (mode === 'manual') {
             temperature = celsius
+            if (celsius > 20 && celsius < 25) {
+                leds.at(1).led.on()
+                leds.at(1).isOn = true
+            } else {
+                leds.at(1).led.off()
+                leds.at(1).isOn = false
+            }
         } else if (mode === 'off') {
             leds.forEach((l) => {
                 l.led.off()
@@ -100,7 +107,7 @@ board.on('ready', function () {
     })
 
     setInterval(() => {
-        socket.emit('temperature', { value: temperature })
+        mode != 'off' && socket.emit('temperature', { value: temperature })
     }, 1000)
 
     var button = new five.Button('A2')

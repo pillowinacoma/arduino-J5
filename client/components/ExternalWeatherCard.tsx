@@ -5,15 +5,8 @@ import TempIcon from '../images/icons/temp-icon.svg'
 interface WeatherProps {
     temp: string
     icon: string
-    description: string
-    city: string
 }
-const ExternelWeatherCard: FC<WeatherProps> = ({
-    temp,
-    icon,
-    description,
-    city,
-}) => {
+const ExternelWeatherCard: FC<WeatherProps> = ({ temp, icon }) => {
     return (
         <div className="bg-white p-10 rounded-3xl flex flex-col md:flex-row  items-center shadow-xl">
             <img
