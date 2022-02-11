@@ -64,7 +64,7 @@ const ContentContainer = () => {
                         />
                         <ModeCard
                             name="automatic"
-                            description="Le mode activé, lorsque l'utilisateur est dans la maison, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température extérieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
+                            description="Le mode activé, s'occupera d'allumer le chauffage ou la climatisation pour réguler la température en fonction de la température interieur. Le chauffage s'activera en dessous de 20°C et la climatisation au dessus de 25°C pour garder une température intérieur ambiante correcte."
                             current_mode="Mode activé"
                             icon={EconomyIcon}
                         />
