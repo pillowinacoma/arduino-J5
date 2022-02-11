@@ -1,11 +1,9 @@
 import Chart from 'react-apexcharts'
 import { useEffect } from 'react'
 import { useAppSelector } from '../hooks'
-import { ApexOptions, exec } from "apexcharts";
-
+import { ApexOptions, exec } from 'apexcharts'
 
 const StatsCard = () => {
-
     const chart: { options: ApexOptions; series: any[] } = {
         options: {
             chart: {
@@ -70,7 +68,7 @@ const StatsCard = () => {
     return (
         <section className="bg-gray-100 border-b py-8">
             <div className="container max-w-5xl mx-auto m-8">
-                <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-blueweather">
                     Statistiques temperature
                 </h1>
                 <div className="w-full mb-4">

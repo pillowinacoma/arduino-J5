@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        blueweather: { DEFAULT: '#003c96' },
         gray: {
           900: '#202225',
           800: '#2f3136',
@@ -14,6 +15,10 @@ module.exports = {
           200: '#ebedef',
           100: '#f2f3f5',
         },
+      },
+      backgroundImage: {
+        weather:
+          'url(/images/pattern.png),linear-gradient(to right,#002762c2,#0043a8),url(/images/Weather.jpg) ',
       },
       spacing: {
         88: '22rem',

@@ -1,6 +1,11 @@
 import { AnyAction, Dispatch, Middleware } from 'redux'
 import * as io from 'socket.io-client'
-import { addTemperatureHistory, setMode, setTemperature } from '../slices/app'
+import {
+    addTemperatureHistory,
+    changeMode,
+    setMode,
+    setTemperature,
+} from '../slices/app'
 import { store } from '../store'
 
 const socket = io.connect()
@@ -26,12 +31,15 @@ socket.on('temperature', (msg) => {
 socket.on('button', () => {
     console.log('button clicked')
 })
+socket.on('message', (message) => {
+    console.log(message)
+})
 socket.on('order', (data) => {
-    console.log('CHMOD')
     const { type, params } = data
+    console.log('skjhvslkjvhb', params)
     switch (type) {
         case 'chmode':
-            store.dispatch(setMode(params.mode))
+            store.dispatch(changeMode(params.mode))
             break
     }
 })
@@ -42,10 +50,6 @@ export const actionMiddleware: Middleware<Dispatch> =
         const [sliceName, reducer] = type.split('/')
 
         if (sliceName === 'app') {
-            const message = JSON.stringify({
-                type: reducer,
-                payload,
-            })
 
             switch (reducer) {
                 case 'toggleMode':
@@ -55,17 +59,17 @@ export const actionMiddleware: Middleware<Dispatch> =
                     break
                 case 'setMode':
                     socket.emit('setMode', {
-                        mode: store.getState().mode,
+                        mode: payload,
                     })
                     break
                 case 'setAc':
                     socket.emit('setAc', {
-                        value: payload
+                        value: payload,
                     })
                     break
                 case 'setHeating':
                     socket.emit('setHeating', {
-                        value: payload
+                        value: payload,
                     })
                     break
             }

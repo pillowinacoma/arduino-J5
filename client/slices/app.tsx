@@ -6,18 +6,17 @@ interface AppState {
     mode: Mode
     temperaturesHistory: TemperatureHistory[]
     devices: Devices
-
 }
 
 // Define the initial state using that type
 const initialState: AppState = {
-    temperature: 0,
+    temperature: 25,
     mode: 'automatic',
     temperaturesHistory: [],
     devices: {
         ac: false,
         heating: false,
-    }
+    },
 }
 
 export const app = createSlice({
@@ -27,8 +26,19 @@ export const app = createSlice({
         setTemperature: (state, action: PayloadAction<number>) => {
             state.temperature = action.payload
         },
-        setMode: (state, action: PayloadAction<Mode>) => {
+        changeMode: (state, action: PayloadAction<Mode>) => {
             state.mode = action.payload
+        },
+        setMode: {
+            reducer: (state, action: PayloadAction<Mode>) => {
+                // state.mode = action.payload
+            },
+            prepare(payload: Mode, propagate: boolean) {
+                return {
+                    payload: payload,
+                    meta: { propagate },
+                }
+            },
         },
         toggleMode: (state) => {
             const modes: Mode[] = ['automatic', 'manual', 'off']
@@ -44,15 +54,21 @@ export const app = createSlice({
         },
         setAc: (state, action: PayloadAction<boolean>) => {
             state.devices.ac = action.payload
-        }, 
+        },
         setHeating: (state, action: PayloadAction<boolean>) => {
             state.devices.heating = action.payload
-        }
+        },
     },
 })
 
-export const { setTemperature, setMode, toggleMode, addTemperatureHistory, setAc, setHeating } =
-    app.actions
+export const {
+    setTemperature,
+    setMode,
+    addTemperatureHistory,
+    setAc,
+    setHeating,
+    changeMode,
+} = app.actions
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.slidesApp.value

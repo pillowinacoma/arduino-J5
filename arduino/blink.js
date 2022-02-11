@@ -3,6 +3,7 @@ const { Board, Led, Sensor, Thermometer } = five
 var io = require('socket.io-client')
 
 const board = new Board()
+let mode = 'automatic' // automatic manual off
 
 const nextMode = (currMode) => {
     const modes = ['automatic', 'manual', 'off']
@@ -10,10 +11,18 @@ const nextMode = (currMode) => {
     const nextModeIndex = (currModeIndex + 1) % modes.length
     return modes.at(nextModeIndex)
 }
+const setMode = (mode, socket) => {
+    socket.emit('order', {
+        type: 'chmode',
+        params: {
+            mode,
+        },
+    })
+    return mode
+}
 
 board.on('ready', function () {
     const socket = io.connect('http://localhost:4000')
-    let mode = 'automatic' // automatic manual off
     let temperature = 0
 
     // 6 => BLue  / AC
@@ -33,17 +42,21 @@ board.on('ready', function () {
         })
     })
 
+    socket.on('message', (message) => {
+        console.log(message)
+    })
+
     socket.on('order', (data) => {
         const { type, params } = data
         switch (type) {
             case 'chmode':
-                mode = params?.mode ?? mode
-
+                mode = setMode(params.mode, socket) ?? mode
                 mode == 'manual' &&
                     leds.forEach((l) => {
                         l.led.off()
                         l.isOn = false
                     })
+                // console.log(('MODE', mode))
                 break
             case 'setAc':
                 if (mode == 'manual') {
@@ -60,6 +73,10 @@ board.on('ready', function () {
                 }
                 break
         }
+        // console.log(
+        //     mode,
+        //     leds.map((l) => l.isOn)
+        // )
     })
 
     thermometer.on('change', () => {
@@ -89,13 +106,13 @@ board.on('ready', function () {
     var button = new five.Button('A2')
 
     button.on('press', function () {
-        socket.emit('changeMode', { mode })
-        mode = nextMode(mode)
+        mode = setMode(nextMode(mode), socket) ?? mode
     })
 
     board.repl.inject({
         leds,
         button,
         socket,
+        mode,
     })
 })

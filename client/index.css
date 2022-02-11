@@ -30,13 +30,16 @@
 .chaud {
     background: linear-gradient(90deg, #fc4829 0%, #daae51 100%);
 }
+.neutral {
+    background: linear-gradient(90deg, #c48d9f 0%, #391c68 100%);
+}
 .gradient {
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
 
 .indicator-item {
-    background-color: #daae51;
-    border: solid 1px #daae51;
+    background-color: #003c96;
+    border: solid 1px #003c96;
     transform: scale(1) !important;
     transition: all 0.15s ease-out;
 }

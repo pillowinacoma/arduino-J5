@@ -62,6 +62,10 @@ const nextMode = (currMode) => {
 io.on('connection', (socket) => {
     console.log(`START\t${socket.id}`)
 
+    socket.on('order', (msg) => {
+        socket.broadcast.emit('order', msg)
+    })
+
     socket.on('temperature', (msg) => {
         const { value } = msg
         socket.broadcast.emit('temperature', {
