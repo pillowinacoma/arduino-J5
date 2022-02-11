@@ -22,7 +22,8 @@ const setMode = (mode, socket) => {
 }
 
 board.on('ready', function () {
-    const socket = io.connect('https://tiw8-tp04.herokuapp.com/')
+    // const socket = io.connect('https://tiw8-tp04.herokuapp.com/')
+    const socket = io.connect('http://localhost:4000')
     let temperature = 0
 
     // 6 => BLue  / AC
