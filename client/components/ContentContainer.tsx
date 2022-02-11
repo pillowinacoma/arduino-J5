@@ -1,11 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import ExternelWeatherCard from './ExternelWeatherCard'
+import ExternalWeatherCard from './ExternalWeatherCard'
 import InternalWeatherCard from './InternalWeatherCard'
 import StatsCard from './StatsCard'
 import { useAppSelector } from '../hooks'
 import ModeCard from './ModeCard'
+import Footer from './Footer'
 import ActiveIcon from '../images/icons/active.svg'
 import EconomyIcon from '../images/icons/economy.svg'
 import VacanceIcon from '../images/icons/vacance.svg'
@@ -15,8 +16,6 @@ const ContentContainer = () => {
     const [description, setDescription] = useState('')
     const [city, setCity] = useState('')
     const [temp, setTemp] = useState(0)
-
-    const [current_mode, setCurrent_mode] = useState('')
 
     useEffect(() => {
         axios.get(`/weather`).then((res) => {
@@ -45,10 +44,9 @@ const ContentContainer = () => {
                         <InternalWeatherCard temp={Number(temperature)} />
                     )}
 
-                    <ExternelWeatherCard temp={`${temp}`} icon={icon} />
+                    <ExternalWeatherCard temp={`${temp}`} icon={icon} />
                 </div>
             </div>
-
             <section className="bg-white border-b py-8">
                 <div className="container px-5 py-24 mx-auto">
                     <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-blueweather">
@@ -80,21 +78,7 @@ const ContentContainer = () => {
                 </div>
             </section>
             <StatsCard />
-            <div className="bg-blueweather py-2">
-                <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row justify-center ">
-                    <p className="text-white text-sm text-center sm:text-left">
-                        © 2022 —
-                        <a
-                            href="#"
-                            className="text-white ml-1"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Smart Room
-                        </a>
-                    </p>
-                </div>
-            </div>
+            <Footer />
         </React.Fragment>
     )
 }
