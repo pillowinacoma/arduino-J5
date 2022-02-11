@@ -107,7 +107,7 @@ board.on('ready', function () {
     })
 
     setInterval(() => {
-        socket.emit('temperature', { value: temperature })
+        mode != 'off' && socket.emit('temperature', { value: temperature })
     }, 1000)
 
     var button = new five.Button('A2')
