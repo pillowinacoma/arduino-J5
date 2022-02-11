@@ -46,12 +46,7 @@ const ContentContainer = () => {
                         <InternalWeatherCard temp={Number(temperature)} />
                     )}
 
-                    <ExternelWeatherCard
-                        temp={`${temp}`}
-                        icon={icon}
-                        description={description}
-                        city={city}
-                    />
+                    <ExternelWeatherCard temp={`${temp}`} icon={icon} />
                 </div>
             </div>
 
