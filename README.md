@@ -42,12 +42,16 @@ Le chauffage autonome possède 3 modes :
 
 ### Architecture Logicelle
 
+![Architecture logicielle](./Architecture_logicielle.png)
+
 ### Architecture matérielle
 
-1x Arduino
-3x LEDs (rouge, verte, bleu)
-1x bouton
-1x capteur de température
+- 1x Arduino
+- 3x LEDs (rouge, verte, bleu)
+- 1x bouton
+- 1x capteur de température
+
+![Architecture materielle](./Architecture_materielle.png)
 
 ---
 
