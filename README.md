@@ -1,11 +1,4 @@
-# TP 4 - IOT
-
-## Groupe
-
-    - SBAAI Abdelaziz p1807434
-    - BOUGE Yoann p1711842
-    - NASR Bechir p1926686
-    - SOUGH Zakari p2018460
+# IOT ARDUINO Project
 
 ## Spec technique
 
